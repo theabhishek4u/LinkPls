@@ -1,0 +1,108 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ── Primary (Gradient) ── */
+.btn--primary {
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(139, 92, 246, 0.4);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+/* ── Secondary (Glass) ── */
+.btn--secondary {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+.btn--secondary:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-hover);
+}
+
+/* ── Ghost ── */
+.btn--ghost {
+  color: var(--text-secondary);
+}
+
+.btn--ghost:hover {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+}
+
+/* ── Danger ── */
+.btn--danger {
+  background: var(--error-bg);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn--danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ── Sizes ── */
+.btn--sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+.btn--lg {
+  padding: 14px 28px;
+  font-size: 1rem;
+}
+
+/* ── Full Width ── */
+.btn--full {
+  width: 100%;
+}
+
+/* ── Loading ── */
+.btn--loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,65 @@
+.topbar {
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+  border-bottom: 1px solid var(--border-subtle);
+  background: rgba(5, 5, 7, 0.6);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topbar__title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.topbar__subtitle {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-top: -2px;
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.topbar__icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.topbar__icon-btn:hover {
+  background: var(--bg-glass);
+  color: var(--text-primary);
+}
+
+.topbar__badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-secondary);
+  border-radius: 50%;
+  border: 2px solid var(--bg-primary);
+}

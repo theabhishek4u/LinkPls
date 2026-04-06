@@ -1,0 +1,234 @@
+.dashboard {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ── Stats Grid ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.stat-card {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card__label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-card__value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.stat-card__change {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-card__change--up { color: var(--success); }
+.stat-card__change--down { color: var(--error); }
+
+/* ── Charts Row ── */
+.dashboard__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+/* ── Activity Feed ── */
+.activity-feed {
+  padding: var(--space-lg);
+}
+
+.activity-feed__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activity-feed__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.activity-item:hover {
+  background: var(--bg-surface-hover);
+}
+
+.activity-item__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.activity-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-item__username {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.activity-item__action {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.activity-item__time {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.activity-item__status {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Follow Funnel ── */
+.funnel {
+  padding: var(--space-lg);
+}
+
+.funnel__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+}
+
+.funnel__bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.funnel-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.funnel-bar__label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.funnel-bar__track {
+  flex: 1;
+  height: 28px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.funnel-bar__fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 1s ease-out;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  min-width: 40px;
+}
+
+.funnel-bar__count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 50px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xl);
+  color: var(--text-tertiary);
+  gap: var(--space-md);
+}
+
+.empty-state__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  background: var(--bg-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state__text {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard__row { grid-template-columns: 1fr; }
+}
