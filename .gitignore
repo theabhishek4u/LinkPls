@@ -1,8 +1,5 @@
 node_modules/
 dist/
-.env
-.env.local
-.env.production
 *.log
 npm-debug.log*
 .DS_Store
@@ -13,3 +10,4 @@ nginx/ssl/*.pem
 nginx/ssl/*.key
 nginx/ssl/*.crt
 redis-data/
+config.bat

@@ -37,9 +37,10 @@ export function AuthProvider({ children }) {
   }, [checkSession]);
 
   const login = async (email, password) => {
-    // --- DUMMY LOGIN FOR UI TESTING ---
-    if (email === 'test@inautodm.com' && password === 'password123') {
-      const dummyUser = { id: 'dummy-123', email: 'test@inautodm.com', role: 'admin', name: 'Commander' };
+    // --- DUMMY LOGIN FOR UI TESTING (Accepts any email) ---
+    // User can login with any email and password for now to test the UI
+    if (email && password) {
+      const dummyUser = { id: 'dummy-123', email: email, role: 'admin', name: 'Commander' };
       const dummySession = { access_token: 'dummy-token-xyz' };
       localStorage.setItem('inautodm_session', JSON.stringify(dummySession));
       setUser(dummyUser);
