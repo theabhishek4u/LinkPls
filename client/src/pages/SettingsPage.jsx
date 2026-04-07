@@ -1,10 +1,52 @@
-import { Globe, Shield, AlertTriangle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Globe, AlertTriangle } from 'lucide-react';
 import TopBar from '../components/Layout/TopBar';
 import GlassCard from '../components/UI/GlassCard';
 import Button from '../components/UI/Button';
+import { useToast } from '../components/UI/Toast';
+import api from '../services/api';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
+  const toast = useToast();
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProfile = async () => {
+    try {
+      const { data } = await api.get('/auth/me');
+      setUser(data.user);
+      setProfile(data.profile);
+    } catch (err) {
+      console.error('Failed to fetch profile', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Check for OAuth success param
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('oauth_success') === 'true') {
+      toast.success('Successfully connected Instagram account!');
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+    
+    fetchProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleConnectClick = () => {
+    if (!user) return;
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    // Redirect to backend OAuth initiator
+    window.location.href = `${API_URL}/auth/instagram?userId=${user.id}`;
+  };
+
+  const isConnected = !!profile?.ig_business_id;
+
   return (
     <div className="fade-in">
       <TopBar title="Settings" subtitle="Configure your automation engine" />
@@ -25,70 +67,27 @@ export default function SettingsPage() {
               <Globe size={22} color="white" />
             </div>
             <div className="settings-connection__info">
-              <div className="settings-connection__name">Instagram Business</div>
+              <div className="settings-connection__name">
+                {isConnected ? (profile.ig_username || 'Business Account') : 'Instagram Business'}
+              </div>
               <div className="settings-connection__status" style={{ color: 'var(--text-secondary)' }}>
-                <span className="settings-connection__dot settings-connection__dot--disconnected" />
-                Not connected
+                <span className={`settings-connection__dot ${isConnected ? 'settings-connection__dot--connected' : 'settings-connection__dot--disconnected'}`} />
+                {isConnected ? 'Connected' : 'Not connected'}
               </div>
             </div>
-            <Button variant="primary" size="sm">Connect</Button>
-          </div>
-        </GlassCard>
-
-        {/* API Configuration */}
-        <GlassCard className="settings-section slide-up" style={{ animationDelay: '0.1s' }}>
-          <h2 className="settings-section__title">
-            <Shield size={18} style={{ color: 'var(--accent-primary)', marginRight: '8px', verticalAlign: 'middle' }} />
-            API Configuration
-          </h2>
-          <p className="settings-section__desc">
-            These values are stored in your server environment. Update your .env file to change them.
-          </p>
-
-          <div className="settings-form">
-            <div className="settings-form__group">
-              <label className="settings-form__label">Page Access Token</label>
-              <input
-                type="password"
-                value="••••••••••••••••••••••"
-                readOnly
-                className="settings-form__token"
-              />
-              <span className="settings-form__hint">
-                Set via IG_ACCESS_TOKEN in your .env file
-              </span>
-            </div>
-
-            <div className="settings-form__group">
-              <label className="settings-form__label">Webhook Verify Token</label>
-              <input
-                type="password"
-                value="••••••••••••"
-                readOnly
-                className="settings-form__token"
-              />
-              <span className="settings-form__hint">
-                Set via WEBHOOK_VERIFY_TOKEN in your .env file
-              </span>
-            </div>
-
-            <div className="settings-form__group">
-              <label className="settings-form__label">Meta App Secret</label>
-              <input
-                type="password"
-                value="••••••••••••"
-                readOnly
-                className="settings-form__token"
-              />
-              <span className="settings-form__hint">
-                Used for webhook signature verification
-              </span>
-            </div>
+            <Button 
+                variant={isConnected ? 'secondary' : 'primary'} 
+                size="sm" 
+                onClick={handleConnectClick}
+                disabled={loading}
+            >
+              {isConnected ? 'Reconnect' : 'Connect'}
+            </Button>
           </div>
         </GlassCard>
 
         {/* Danger Zone */}
-        <GlassCard className="settings-section settings__danger-zone slide-up" style={{ animationDelay: '0.2s' }}>
+        <GlassCard className="settings-section settings__danger-zone slide-up" style={{ animationDelay: '0.1s' }}>
           <h2 className="settings-section__title">
             <AlertTriangle size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
             Danger Zone
@@ -105,3 +104,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+

@@ -1,11 +1,11 @@
 {
   "name": "inautodm-server",
   "version": "1.0.0",
-  "description": "InAutoDm — Instagram Follow-Gate Automation Engine",
+  "description": "InAutoDm \u2014 Instagram Follow-Gate Automation Engine",
   "main": "src/index.js",
   "scripts": {
-    "dev": "node --watch src/index.js",
-    "start": "node src/index.js",
+    "dev": "node init && node --watch src/index.js",
+    "start": "node init && node src/index.js",
     "test": "node --test src/tests/**/*.test.js"
   },
   "dependencies": {
